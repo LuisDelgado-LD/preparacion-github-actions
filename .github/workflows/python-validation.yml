@@ -1,0 +1,30 @@
+name: Ultimos test dom1-d1 
+
+on:
+  push:
+    branches: 
+      - "main"
+    paths:
+      - "ultimos ejercicios/Dominio 1/desafio 1/src/**"
+  pull_request:
+    branches: 
+      - "main"
+    paths:
+      - "ultimos ejercicios/Dominio 1/desafio 1/src/**.py"
+
+jobs:
+  runs-on: ubuntu-latest
+  if: ${{ secrets.VALIDATION_KEY }}
+  defaults:
+    run:
+      working-directory: "ultimos ejercicios/Dominio 1/desafio 1/"
+  steps:
+    - name: Validar sintaxis de python
+      run: bash validate.sh 
+      continue-on-error: true
+    - name: Subir artefacto
+      if: ${{ failure() }}
+      uses: actions/upload-artifact@v4
+      with:
+        name: "Reporte falla"
+        path: error.log
