@@ -15,7 +15,7 @@ on:
 jobs:
   myjob:
     runs-on: ubuntu-latest
-    if: secrets.VALIDATION_KEY != ''
+    if: '${{ secrets.VALIDATION_KEY != ''}}'
     defaults:
       run:
         working-directory: "ultimos ejercicios/Dominio 1/desafio 1/"
