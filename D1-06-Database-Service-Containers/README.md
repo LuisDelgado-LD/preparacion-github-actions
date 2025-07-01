@@ -321,3 +321,104 @@ Tu objetivo es **corregir** el workflow `.github/workflows/debug-mysql-service.y
   - El workflow corregido se ejecuta exitosamente.
   - El log del paso "Test DB connection" muestra "Conexión exitosa a MySQL."
   - El trabajo finaliza con un estado de éxito (verde).
+
+
+## Resultados
+
+### Desafío 1: PostgreSQL Básico para Pruebas Unitarias
+[![Postgress](https://github.com/LuisDelgado-LD/preparacion-github-actions/actions/workflows/test-with-postgres.yml/badge.svg)](https://github.com/LuisDelgado-LD/preparacion-github-actions/actions/workflows/test-with-postgres.yml)
+
+El desafío a nivel de workflow estuvo bastante fácil, pero no excento de errores.
+La primera búsqueda fue por el [marketplace](https://github.com/marketplace?query=docker-cache&type=actions) a ver si existía una actions que me montara el entorno docker, a pesar de que sabía que en el runner ya venía docker por defecto según una investigación anterior. Defini la variable de `postgress_password` como secreto en el repositorio y lo configuré de forma global a nivel del job. Ya que no encontré un action para desplegar imagenes docker, lo hice por línea de comandos.
+También pudé reforzar el conocimiento refeerente a la propiedad `jobs.<id>.steps.<step>.working-directory` 
+A modo de aplicar conceptos ya conocidos, aproveche de utilizar nuevamente el action `actions/setup-python@v5` ya que debía instalar una dependencia de python, busqué también una cache para la imagen de docker, sin embargo la que encontré `ScribeMD/docker-cache@0.5.0` no cachea correctamente devolviendo un error `Failed to restore: getCacheEntry failed: Cache service responded with 503`.
+Lo que destaco es que utilicé la variable `${{ runner.arch }}` con la cual no había trabajado antes.
+
+Los errores fueron principalmente del código aunque destaco que corregí mi idea errada de que utilizando `|` en el yaml automáticamente me iba a ejecutar el comando en una sola línea, y no fue así, esto lo corregí en el commit [79163b1](https://github.com/LuisDelgado-LD/preparacion-github-actions/commit/79163b132b78ae33e2bf679ded33579114e4f6d2) teniendo en consideración que estoy trabajando con una terminal `bash` 
+El siguiente gran error fue por la funcion python `os.getenv()` que no suelo utilizar y mal entendí su uso lo que me llevó a declarar mal las variables de entorno.
+También tratando de resolver el mismo problema que vi la documentación del contenedor de [postgres](https://hub.docker.com/_/postgres) para ver cual es el usuario y nombre de la base de datos utilizados
+
+#### Código
+
+```yaml
+name: Postgress
+
+on:
+  push:
+    branches:
+      - "main"
+env:
+  PPASS: ${{ secrets.postgress_password }}
+jobs:
+  Job_unico:
+    name: Lab de Postgress
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clonar repo
+        uses: actions/checkout@v4
+      - name: Preparar cache python
+        uses: actions/setup-python@v5
+        with:
+          cache: "pip"
+      - name: Desplegar contenedor Docker
+        run: |
+          docker run --name postgres-db \
+          -e POSTGRES_PASSWORD=${{ env.PPASS }} \
+          -p 5432:5432 \
+          -e POSTGRES_USER=user \
+          -e POSTGRES_DB=testdb \
+          -d postgres:latest
+      - name: Cache de la imagen Docker
+        uses: ScribeMD/docker-cache@0.5.0
+        with:
+          key: ${{ runner.arch }}
+      - name: Instalar dependencias python
+        run: pip install psycopg2
+      - name: Validar la conectividad al contenedor
+        env:
+          DB_PASSWORD: ${{ env.PPASS }}
+        working-directory: "D1-06-Database-Service-Containers/Desafio 1/"
+        run: python test_db_connection.py
+        continue-on-error: true
+```
+#### Evidencia
+![](./Desafio%201/resultado%20test-with-postgres.png)
+
+### Desafío 2: Servicio Redis para Cacheo de Aplicaciones
+
+Este desafío fue bastante simple ya que no se vieron nuevos temas relacionados a GitHub Actions, esta vez si encontré un actions que me permitía montar un servidor redis de forma más simple `supercharge/redis-github-action` y evité el uso de `working-directory` y ejecuté el comando indicando toda la ruta relativa.
+
+Algo que si me ocurrio y me sorprendio el motivo fue que, al entrar al workflow en ejecución no pude ver inmediatamente los `print` del script simulate_cache.py a pesar que el workflow se ejecuto de forma correcta, investigando descubri que las salidas se almacenan un tiempo en un buffer y luego se pueden visualizar
+
+
+#### Código
+
+```yaml
+name: Cache con Redis
+
+on:
+  workflow_dispatch:
+
+jobs:
+  cache:
+    name: Crear un contenedor de redis y probarlo
+    runs-on: ubuntu-latest
+    env:
+      REDIS_HOST: localhost
+      REDIS_PORT: 10578
+    steps:
+      - uses: actions/checkout@v4
+      - name: Instalar libreria redis en Python
+        run: pip install redis
+      - name: Ejecutar contenedor redis
+        uses: supercharge/redis-github-action@1.7.0
+        with:
+          redis-version: 8-alpine
+          redis-port: ${{ env.REDIS_PORT }} 
+      - name: Probar la conectividad
+        run: |
+          python "D1-06-Database-Service-Containers/Desafio 2/simulate_cache.py"
+```
+#### Evidencia
+
+![](./Desafio%202/resultado%20redis-cache-simulationpng.png)
