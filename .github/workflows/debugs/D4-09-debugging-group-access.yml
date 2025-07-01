@@ -1,0 +1,9 @@
+# .github/workflows/debugging-group-access.yml
+name: Debugging Group Access
+on: workflow_dispatch
+jobs:
+  build:
+    runs-on: production-runners
+    steps:
+      - name: Build project
+        run: echo "Building..."

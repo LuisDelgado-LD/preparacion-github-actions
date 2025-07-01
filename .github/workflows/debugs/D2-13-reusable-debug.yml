@@ -1,0 +1,20 @@
+name: Reusable Workflow with Outputs
+on:
+  workflow_call:
+    inputs:
+      version: 
+        required: true
+        type: string
+    outputs:
+      build-id:
+        description: "The ID of the build"
+        value: ${{ jobs.build.outputs.id }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      id: ${{ steps.build_step.outputs.build_id }}
+    steps:
+      - id: build_step
+        run: echo "build_id=build-$(date +%s)" >> $GITHUB_OUTPUT

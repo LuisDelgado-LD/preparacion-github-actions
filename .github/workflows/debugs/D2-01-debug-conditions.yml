@@ -1,0 +1,37 @@
+# .github/workflows/debug-conditions.yml (CON ERRORES INTENCIONALES)
+name: Debug Conditional Logic
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  conditional_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Step for push to main
+        # Error: La condición es demasiado simple y se ejecutará también en PRs
+        if: github.ref == 'refs/heads/main'
+        run: echo "This should only run on a direct push to main"
+
+      - name: Step for pull requests
+        # Error de sintaxis en el operador de comparación
+        if: github.event_name = 'pull_request'
+        run: echo "This should run on any pull request to main"
+
+      - name: Step that should always run
+        # Error: La condición usa una función de status check de forma incorrecta
+        if: always
+        run: echo "This step should run regardless of previous failures."
+
+      - name: Step that depends on a variable
+        # Error: La variable de entorno no se está evaluando correctamente en la condición
+        if: env.SHOULD_RUN == 'true'
+        env:
+          SHOULD_RUN: "true"
+        run: echo "This step should run because SHOULD_RUN is true."

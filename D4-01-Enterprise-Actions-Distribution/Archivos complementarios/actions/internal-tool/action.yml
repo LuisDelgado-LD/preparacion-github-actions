@@ -1,0 +1,7 @@
+name: 'Internal Enterprise Tool'
+description: 'Una action interna aprobada para uso en la organización.'
+runs:
+  using: 'composite'
+  steps:
+    - run: echo "Ejecutando la herramienta interna de la empresa..."
+      shell: bash

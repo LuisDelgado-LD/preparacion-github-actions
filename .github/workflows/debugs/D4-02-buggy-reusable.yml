@@ -1,0 +1,19 @@
+name: Buggy Reusable Workflow
+on:
+  workflow_call:
+    inputs:
+      package_name:
+        description: 'The name of the package'
+        required: true
+        type: string
+    secrets:
+      REGISTRY_TOKEN:
+        description: 'Token for the registry'
+        required: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Building ${{ inputs.package_name }}"
+      - run: echo "Token starts with ${{ secrets.REGISTRY_TOKEN }}" # Esto fallará

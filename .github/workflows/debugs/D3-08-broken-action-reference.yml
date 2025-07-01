@@ -1,0 +1,28 @@
+# .github/workflows/broken-action-reference.yml
+name: Broken Action Reference
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Run a broken action reference
+        # Pista: La forma de referenciar una action pública es {owner}/{repo}@{version}.
+        # ¿Está completa esta referencia?
+        uses: actions/checkout
+        with:
+          version: v3 # Esto no es un parámetro válido para checkout
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Fail step
+        # Pista: ¿Cómo se referencia una action que está en un subdirectorio de otro repositorio?
+        # La sintaxis es {owner}/{repo}/{path}@{ref}.
+        uses: actions/super-linter

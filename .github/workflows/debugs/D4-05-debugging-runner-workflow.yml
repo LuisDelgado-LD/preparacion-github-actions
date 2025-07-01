@@ -1,0 +1,11 @@
+# .github/workflows/debugging-runner-workflow.yml
+name: Debugging Runner Issues
+on: workflow_dispatch
+
+jobs:
+  build:
+    # Este job requiere un runner con una combinación de etiquetas muy específica
+    runs-on: [self-hosted, linux, docker, non-existent-label]
+    steps:
+      - name: Echo Message
+        run: echo "Este job debería ejecutarse en un runner de producción con Docker."

@@ -1,0 +1,21 @@
+# .github/workflows/debug-gate.yml
+name: Debug Approval Gate
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Building the project..."
+
+  approve-deployment:
+    runs-on: ubuntu-latest
+    environment: production # El entorno 'production' requiere un revisor
+    steps:
+      - run: echo "Aprobación requerida para este paso."
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - run: echo "Desplegando sin piedad..."

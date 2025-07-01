@@ -1,0 +1,15 @@
+# .github/workflows/debug-commands.yml
+name: Debug Workflow Commands
+on: push
+jobs:
+  annotate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Create dummy file
+        run: echo "def old_function():" > src/legacy.py
+      - name: Run annotator
+        uses: ./code-annotator
+        with:
+          file: 'src/legacy.py'
+          line: '1'

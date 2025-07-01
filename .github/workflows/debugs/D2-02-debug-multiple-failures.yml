@@ -1,0 +1,28 @@
+# .github/workflows/debug-multiple-failures.yml (CON ERRORES INTENCIONALES)
+name: Debug Multiple Failures
+
+on: push
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+          cache: 'pip' # Error: La configuración de caché es incorrecta aquí
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt # Error: El archivo requirements.txt no existe
+
+      - name: Run a non-existent command
+        run: my_custom_linter --format # Error: Este comando no está instalado
+
+      - name: Create a file in a protected directory
+        run: echo "Final report" > /etc/report.txt # Error: Permisos insuficientes

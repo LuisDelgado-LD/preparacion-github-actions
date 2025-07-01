@@ -1,0 +1,11 @@
+name: Buggy Caller
+on: workflow_dispatch
+
+jobs:
+  call-workflow:
+    uses: ./.github/workflows/buggy-reusable.yml
+    # Pista: ¿El nombre de la entrada coincide con lo que el workflow reutilizable espera?
+    with:
+      artifact_name: 'my-app'
+    # Pista: ¿Cómo se pasan los secretos? ¿Es 'secrets: true' una sintaxis válida?
+    secrets: true

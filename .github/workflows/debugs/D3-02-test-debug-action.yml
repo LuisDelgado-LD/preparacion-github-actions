@@ -1,0 +1,12 @@
+name: Test Debug JS Action
+on: workflow_dispatch
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: npm install
+        working-directory: debug-js-action
+      - uses: ./debug-js-action
+        with:
+          input-data: 'some data'

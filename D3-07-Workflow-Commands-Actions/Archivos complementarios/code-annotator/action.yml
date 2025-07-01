@@ -1,0 +1,17 @@
+# code-annotator/action.yml
+name: 'Code Annotator'
+description: 'Añade advertencias a archivos específicos.'
+inputs:
+  file:
+    description: 'Archivo a anotar'
+    required: true
+  line:
+    description: 'Línea a anotar'
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - run: python $GITHUB_ACTION_PATH/main.py
+      env:
+        INPUT_FILE: ${{ inputs.file }}
+        INPUT_LINE: ${{ inputs.line }}

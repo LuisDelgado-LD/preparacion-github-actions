@@ -1,0 +1,23 @@
+# .github/workflows/broken-ci.yml
+# ESTE WORKFLOW CONTIENE ERRORES INTENCIONADOS
+name: Broken CI Workflow
+
+on: push
+
+jobs:
+  debug-me:
+  runs-on: ubuntu-latest
+  steps:
+    - name: Check out code
+      uses: actions/checkout@v2 # Versión antigua
+
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+
+    - name: Run a script
+      run: ./check_version.sh
+
+    - name: This step will fail
+      run: python -c "import non_existent_module"

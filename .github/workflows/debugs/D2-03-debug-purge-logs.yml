@@ -1,0 +1,20 @@
+# .github/workflows/debug-purge-logs.yml (CON ERRORES INTENCIONALES)
+name: Debug Log Purging
+
+on:
+  schedule:
+    - cron: '0 2 * * *' # Se ejecuta diariamente a las 2 AM
+
+jobs:
+  purge_old_logs:
+    runs-on: ubuntu-latest
+    # Faltan permisos para eliminar logs de actions
+
+    steps:
+      - name: Purge Old Workflow Runs
+        uses: Mattraks/delete-workflow-runs@v2
+        with:
+          token: GITHUB_TOKEN # Error: El token debe ser pasado como un secreto
+          repository: ${{ github.repository }}
+          retain_days: 7
+          keep_minimum_runs: 3 # Error: La propiedad está mal escrita

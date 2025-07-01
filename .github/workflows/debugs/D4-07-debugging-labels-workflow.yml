@@ -1,0 +1,13 @@
+# .github/workflows/debugging-labels-workflow.yml
+name: Debugging Runner Selection
+on: workflow_dispatch
+
+jobs:
+  test-and-deploy:
+    # Este job intenta encontrar un runner que sea alojado por GitHub y a la vez auto-alojado.
+    runs-on: [ubuntu-latest, self-hosted]
+    steps:
+      - name: Run tests
+        run: echo "Ejecutando pruebas..."
+      - name: Deploy
+        run: echo "Desplegando a producción..."

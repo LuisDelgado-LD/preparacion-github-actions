@@ -13,10 +13,42 @@ Este plan se centra en los dominios del examen con mayor peso porcentual y en tu
 * **Dominio 1: Autoría y Mantenimiento de Flujos de Trabajo (40% del examen)**
 * **Dominio 3: Autoría y Mantenimiento de Acciones (25% del examen)**
 * **Dominio 2: Consumo de Flujos de Trabajo (20% del examen)**
-
-El **Dominio 4 (Gestión de GitHub Actions para la empresa)** se ha omitido para este plan.
+* **Dominio 4: Implementación y Administración de Seguridad y Cumplimiento (15% del examen)**
 
 ---
+
+## 🛡️ Niveles mínimos de cuenta requeridos por ejercicio
+
+La siguiente tabla resume el nivel mínimo de cuenta de GitHub necesario para realizar cada ejercicio, según lo indicado en los README de cada carpeta:
+
+| Directorio | Nivel mínimo requerido | Justificación |
+|------------|-----------------------|--------------|
+| D1-01-Workflow-Triggers | GitHub Free | Triggers básicos de workflow |
+| D1-02-Secrets-Env-Vars | GitHub Free | Uso básico de secretos de repositorio |
+| D1-05-CI-CD-Publishing | GitHub Free | Pipeline básico, publicación en registros |
+| D1-07-CodeQL-Security-Scanning | GitHub Free | Escaneo de seguridad básico |
+| D1-08-GitHub-Releases-Deployment | GitHub Free | Creación y gestión de releases |
+| D2-08-Environment-Protections | GitHub Teams | Requiere aprobaciones manuales y entornos protegidos |
+| D2-09-Matrix-Job-Configurations | GitHub Free | Configuraciones de matriz básicas |
+| D2-13-Organizational-Workflow-Templates | GitHub Organizations | Requiere repositorio `.github` a nivel de organización |
+| D3-02-JavaScript-Actions | GitHub Free | Creación de acciones básicas |
+| D3-05-Action-Components-Structure | GitHub Free | Anatomía básica de acciones |
+| D3-08-Action-Distribution-Models | GitHub Free | Distribución básica de acciones |
+| D3-10-GitHub-Marketplace-Publishing | GitHub Free | Publicación en marketplace |
+| D4-01-Enterprise-Actions-Distribution | GitHub Enterprise | Gestión de acciones en entorno empresarial |
+| D4-02-Reusable-Components-Management | GitHub Organizations | Gestión a nivel organizacional |
+| D4-03-Enterprise-Access-Control | GitHub Organizations | Control de acceso a runners y recursos organizacionales |
+| D4-04-Organizational-Use-Policies | GitHub Organizations | Políticas de uso de acciones a nivel organización |
+| D4-05-Runner-Management-Enterprise | GitHub Organizations | Runners auto-alojados a nivel organización |
+| D4-06-IP-Allow-Lists-Configuration | GitHub Organizations | Configuración de seguridad organizacional |
+| D4-08-Self-Hosted-Runner-Config | GitHub Free | El primer desafío es para runners auto-alojados a nivel de repositorio (GitHub Free); el segundo requiere organización, pero el nivel mínimo es Free |
+| D4-09-Runner-Groups-Management | GitHub Organizations | Grupos de runners a nivel organización |
+| D4-10-Runner-Monitoring-Troubleshooting | GitHub Organizations | API organizacional para monitoreo |
+| D4-11-Enterprise-Secrets-Scope | GitHub Organizations | Secretos a nivel organización |
+| D4-12-Organization-Level-Secrets | GitHub Organizations | Gestión centralizada de secretos |
+| D4-13-Repository-Level-Secrets | GitHub Free | Secretos básicos de repositorio |
+| ultimos ejercicios | GitHub Free | Ejercicios de práctica general |
+
 
 ## 🏗️ Estructura del Repositorio
 
@@ -40,6 +72,66 @@ Asegúrate de replicar esta estructura en tu repositorio de GitHub.
 ¡Mucha suerte en tu preparación y en el examen! ¡Confío en tu éxito!
 
 ---
+## Promps utilizados
+
+Durante la creación de este repositorio se utilizaron diversos prompts, básicamente el trabajo se dividio en tres etapas.
+1. Ánalisis del material de estudio y creación de los directorios
+2. Generación de prompts genérico para la creación de los `README.md` dentro de cada directorio
+3. Generación del contenido de los `README.md` y archivos asociados según lo obtenido en los pasos 1 y 2 
+
+Debido a esto, desde la carpeta D1-06-Database-Service-Containers en adelante el contenido fue revisado de forma superficial, tanto de forma manual como automátizada utilizando agentes LLM.
+Cualquier increpancia favor abrir una issue indicando el problema, si quiere puede abrir el pr asociandolo a la issue
+
+### Promp de generación de contenido
+```
+Actúa como un experto instructor de GitHub Actions certificado. Necesito que generes desafíos prácticos para preparación de examen siguiendo estas especificaciones exactas:
+
+**CONTEXTO DEL EXAMEN:**
+- GitHub Actions Certification Exam
+- Estructura basada en 4 dominios oficiales del Study Guide
+- Enfoque en ejercicios hands-on simples y efectivos
+
+**SOLICITUD ESPECÍFICA:**
+- Dominio: {{DOM}}
+- Módulo: {{MOD}}
+
+
+**ESPECIFICACIONES TÉCNICAS:**
+- Ejercicios completables en 15-30 minutos cada uno
+- Sin dependencias externas complejas
+- Preferencia por Python y Bash
+- Enfoque práctico sin teoría excesiva
+- Archivos de configuración incluidos en cada desafío
+
+**FORMATO REQUERIDO:**
+Estructura markdown con:
+```markdown
+# Concepto a Resolver: [TÍTULO_CONCEPTO]
+[Descripción breve del concepto]
+
+---
+
+## Desafío: [NOMBRE_DESAFÍO]
+[Descripción del ejercicio con archivos específicos a crear]
+
+**Archivos a crear:**
+- archivo1.yml
+- archivo2.py
+
+**Contenido de ejemplo:**
+```[código de ejemplo]```
+
+### Resultado Esperado:
+- [Criterio 1 de éxito]
+- [Criterio 2 de éxito]
+- [Criterio 3 de éxito]
+```
+
+**CANTIDAD:** Genera entre 3-5 desafíos por módulo
+
+**CALIDAD:** Cada desafío debe estar alineado con los objetivos oficiales del Study Guide y ser directamente aplicable al examen de certificación.
+
+```
 
 # UPDATE 29/06/2025
 Gracias a los ejercicios de este repo, vídeos de youtube y los módulos de github de microsoft learn (que no son tan buenos la verdad), he podido obtener mi certificado de GitHub Actions. Motivo por el cual no seguiré desarrollando los ejercicios que tenía planificados.
@@ -53,3 +145,4 @@ Creo que uno de los problemas que enfrenté fue lo extenso de este path combinad
 
 Esta idea la tuve cuando llevaba poco tiempo estudiando para esta certificación, de hecho originalmente una versión abstracta vino cuando estudíe para GitHub Fundations y gracias a algún módulo de [GitHub Skills](https://github.com/skills) que me parecio muy entretenido. Claro en su momento no tenía idea pero ya empezando el curso de Actions me percaté de como hacían la magia y que mejor manera de estudiar!, sin embargo era consciente de que con tan poco tiempo no iba a poder desarrollar la idea y a la vez estudiar así que esperé a tener algo más de tiempo.
 Ahora entre comillas tengo ese tiempo, así que como comenté, dejaré terminado este repo, solo con los ejercicios (que **pueden** contener errores, sobre todo en el código que brinda) sin los resultados faltantes para ponerme a trabajar en este nuevo repositorio
+

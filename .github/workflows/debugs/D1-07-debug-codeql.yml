@@ -1,0 +1,30 @@
+# .github/workflows/debug-codeql.yml (CON ERRORES INTENCIONALES)
+name: Debug CodeQL Scan
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+      contents: read
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3 # Usando una versión antigua intencionalmente
+
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v3 # Usando una versión antigua intencionalmente
+      with:
+        languages: 'javascript' # Lenguaje incorrecto intencionalmente
+
+    - name: Autobuild # Paso de construcción faltante o incorrecto para Python
+      run: echo "No build command needed for simple Python scripts, right?"
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v3 # Usando una versión antigua intencionalmente

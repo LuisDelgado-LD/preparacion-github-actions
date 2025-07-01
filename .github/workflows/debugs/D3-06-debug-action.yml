@@ -1,0 +1,18 @@
+# .github/workflows/debug-action.yml
+name: Debug Action Metadata
+
+on: workflow_dispatch
+
+jobs:
+  test-action:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Usar acción rota
+        id: descuento
+        uses: ./broken-action
+        with:
+          precio-base: '200'
+          porcentaje-descuento: '25'
+      - name: Mostrar resultado
+        run: echo "El precio con descuento es ${{ steps.descuento.outputs.precio-final }}"

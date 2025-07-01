@@ -1,0 +1,15 @@
+# debug-me.yml
+name: Fallas comunes
+on:
+  push:
+    branch: main
+
+jobs:
+  ejecutar:
+    run-on: ubuntu-latest
+    steps:
+      - name: Obtener código
+        user: actions/checkout@v2
+
+      - name: Ejecutar script
+        run: python3 main.py

@@ -1,0 +1,16 @@
+# .github/workflows/debugging-policy-workflow.yml
+name: Debugging Policy Workflow
+on: push
+
+jobs:
+  security-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run security linter
+        uses: some-random-community/super-linter@v5
+        env:
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

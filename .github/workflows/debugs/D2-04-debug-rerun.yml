@@ -1,0 +1,38 @@
+# .github/workflows/debug-rerun.yml
+name: Debugging Re-run Issues
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy to'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+        - staging
+        - production
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Este paso es intencionalmente frágil
+      - name: Deploy to environment
+        run: |
+          echo "Deploying to ${{ github.event.inputs.environment }}"
+          if [ "${{ github.event.inputs.environment }}" == "production" ]; then
+            echo "Error: Despliegue a producción deshabilitado temporalmente."
+            exit 1
+          fi
+          echo "Despliegue a staging exitoso."
+
+      # Este paso solo debe correr si el despliegue a producción falla y se re-ejecuta
+      - name: Notify on production re-run
+        if: failure() && github.event.inputs.environment == 'production'
+        run: |
+          echo "Alerta: Se está intentando re-ejecutar un despliegue fallido a producción."

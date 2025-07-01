@@ -1,0 +1,29 @@
+# .github/workflows/debug-artifacts.yml
+name: Debugging Artifacts
+on: push
+
+jobs:
+  creator:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create a file
+        run: echo "hello from creator" > my-file.txt
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: my-special-artifact # Nombre correcto
+          path: my-file.txt
+
+  consumer:
+    runs-on: ubuntu-latest
+    # Falta una dependencia clave aquí
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          # El nombre aquí es incorrecto
+          name: my-artifact
+
+      - name: Check file content
+        run: cat my-file.txt

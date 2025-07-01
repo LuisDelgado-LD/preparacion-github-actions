@@ -1,0 +1,29 @@
+# .github/workflows/broken-version.yml
+name: Broken Dependency Due to Floating Version
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create a dummy file
+        id: create_file
+        run: |
+          echo "version=1.0" > my_output.txt
+          echo "output_path=$(pwd)/my_output.txt" >> $GITHUB_OUTPUT
+
+      # Pista: Esta action hipotética solía generar un archivo de salida, pero en su 'última' versión, el nombre del archivo cambió.
+      # La versión flotante @v1 ha introducido un cambio de ruptura.
+      - name: Generate content (hypothetical action)
+        id: generator
+        uses: actions/github-script@v1 # Supongamos que v1 ahora crea 'new_output.txt' en lugar de 'my_output.txt'
+        with:
+          script: |
+            core.setOutput('old_output_path', steps.create_file.outputs.output_path);
+
+      - name: Check file existence
+        # Este script espera encontrar 'my_output.txt', pero la 'nueva' versión de la action no lo crea.
+        run: ./check-output.sh ${{ steps.generator.outputs.old_output_path }}

@@ -1,0 +1,24 @@
+# .github/workflows/debug-action-usage.yml
+name: Debug Action Usage
+on: workflow_dispatch
+
+jobs:
+  lint-code:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node_version: 18 # La entrada es 'node-version', no 'node_version'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Lint files
+        uses: github/super-linter@v5 # Repositorio incorrecto y falta de variables de entorno
+        env:
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

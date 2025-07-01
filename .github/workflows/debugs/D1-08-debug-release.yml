@@ -1,0 +1,35 @@
+# .github/workflows/debug-release.yml (CON ERRORES INTENCIONALES)
+name: Debug Release Creation
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  create_release:
+    runs-on: ubuntu-latest
+    # Faltan permisos para crear releases y subir assets
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Create Dummy File
+      run: echo "dummy content" > artifact.log
+
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.tag }} # Error: github.tag no existe en este contexto
+        release_name: 'Release ${{ github.ref }}'
+        body: 'Release created from tag ${{ github.ref }}'
+        draft: false
+        prerelease: 'True' # Error: el valor de prerelease debe ser un booleano
+
+    - name: Upload Release Asset
+      # Falta un paso para subir el artefacto a la release
+      run: echo "Asset should be uploaded here!"
