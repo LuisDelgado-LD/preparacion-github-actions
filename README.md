@@ -83,7 +83,7 @@ Debido a esto, desde la carpeta D1-06-Database-Service-Containers en adelante el
 Cualquier increpancia favor abrir una issue indicando el problema, si quiere puede abrir el pr asociandolo a la issue
 
 ### Promp de generación de contenido
-```
+
 Actúa como un experto instructor de GitHub Actions certificado. Necesito que generes desafíos prácticos para preparación de examen siguiendo estas especificaciones exactas:
 
 **CONTEXTO DEL EXAMEN:**
@@ -131,7 +131,6 @@ Estructura markdown con:
 
 **CALIDAD:** Cada desafío debe estar alineado con los objetivos oficiales del Study Guide y ser directamente aplicable al examen de certificación.
 
-```
 
 # UPDATE 29/06/2025
 Gracias a los ejercicios de este repo, vídeos de youtube y los módulos de github de microsoft learn (que no son tan buenos la verdad), he podido obtener mi certificado de GitHub Actions. Motivo por el cual no seguiré desarrollando los ejercicios que tenía planificados.
