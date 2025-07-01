@@ -40,3 +40,16 @@ Asegúrate de replicar esta estructura en tu repositorio de GitHub.
 ¡Mucha suerte en tu preparación y en el examen! ¡Confío en tu éxito!
 
 ---
+
+# UPDATE 29/06/2025
+Gracias a los ejercicios de este repo, vídeos de youtube y los módulos de github de microsoft learn (que no son tan buenos la verdad), he podido obtener mi certificado de GitHub Actions. Motivo por el cual no seguiré desarrollando los ejercicios que tenía planificados.
+Creo que uno de los problemas que enfrenté fue lo extenso de este path combinado con el poco tiempo que tuve para prepararme, de cerca de 2 semanas, así que los siguientes pasos son:
+- Subir todos los desafíos que aún no había subido, con el fin de que si alguien quiere continuar con este path pueda hacerlo y no se quede sin repasar algún tema
+- Separar los resultados que he subido a la rama main y colocarlos en la rama [resultados](https://github.com/LuisDelgado-LD/preparacion-github-actions/tree/resultados) eliminando toda referencia en la rama main. los últimos ejercicios ya los subí a esta rama 
+- Subir los prompts que utilicé en la creación de este repositorio junto con otra información relevante
+- **crear un nuevo repositorio** con el mismo fin, entregar herramientas para prepararse para la certificación de GitHub Actions, pero con un enfoque muy distinto
+
+## Sobre este nuevo repositorio
+
+Esta idea la tuve cuando llevaba poco tiempo estudiando para esta certificación, de hecho originalmente una versión abstracta vino cuando estudíe para GitHub Fundations y gracias a algún módulo de [GitHub Skills](https://github.com/skills) que me parecio muy entretenido. Claro en su momento no tenía idea pero ya empezando el curso de Actions me percaté de como hacían la magia y que mejor manera de estudiar!, sin embargo era consciente de que con tan poco tiempo no iba a poder desarrollar la idea y a la vez estudiar así que esperé a tener algo más de tiempo.
+Ahora entre comillas tengo ese tiempo, así que como comenté, dejaré terminado este repo, solo con los ejercicios (que **pueden** contener errores, sobre todo en el código que brinda) sin los resultados faltantes para ponerme a trabajar en este nuevo repositorio
