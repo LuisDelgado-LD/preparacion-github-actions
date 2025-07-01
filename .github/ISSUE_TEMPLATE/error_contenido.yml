@@ -1,0 +1,31 @@
+name: Error con contenido
+description: Reporta errores en el contenido teórico, instrucciones o descripciones.
+labels: [contenido, documentation]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Error con contenido
+        Si encontraste un error en la documentación, instrucciones o descripciones, por favor repórtalo aquí.
+  - type: input
+    id: ubicacion
+    attributes:
+      label: Ubicación del error
+      description: Indica el archivo y sección donde encontraste el error.
+      placeholder: D1-02-Secrets-Env-Vars/README.md, sección "Desafío"
+    validations:
+      required: true
+  - type: textarea
+    id: descripcion
+    attributes:
+      label: Descripción del error
+      description: Explica el error encontrado en el contenido.
+    validations:
+      required: true
+  - type: textarea
+    id: sugerencia
+    attributes:
+      label: Sugerencia de mejora (opcional)
+      description: Si tienes una propuesta de mejora, escríbela aquí.
+    validations:
+      required: false

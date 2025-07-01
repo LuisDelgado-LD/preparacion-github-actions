@@ -1,0 +1,42 @@
+name: Error con archivos de ejercicios
+description: Reporta un problema con los archivos de los ejercicios (código, scripts, etc).
+labels: [bug, ejercicios]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Error con archivos de ejercicios
+        Por favor, proporciona la información necesaria para identificar el problema.
+  - type: input
+    id: archivo
+    attributes:
+      label: Archivo afectado
+      description: Indica el nombre y ruta del archivo con el error.
+      placeholder: D1-01-Workflow-Triggers/README.md
+    validations:
+      required: true
+  - type: textarea
+    id: descripcion
+    attributes:
+      label: Descripción del error
+      description: Explica el error encontrado en el archivo.
+    validations:
+      required: true
+  - type: textarea
+    id: pasos
+    attributes:
+      label: Pasos para reproducir
+      description: ¿Cómo encontraste el error?
+      placeholder: |
+        1. Abrir el archivo
+        2. Leer la sección X
+        3. Notar el error
+    validations:
+      required: true
+  - type: textarea
+    id: sugerencia
+    attributes:
+      label: Sugerencia de corrección (opcional)
+      description: Si tienes una sugerencia de cómo corregirlo, indícalo aquí.
+    validations:
+      required: false

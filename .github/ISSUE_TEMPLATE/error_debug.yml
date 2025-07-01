@@ -1,0 +1,50 @@
+name: Error con workflow de debug
+description: Reporta un problema relacionado con los workflows de depuración.
+labels: [debug, bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Error con workflow de debug
+        Por favor, completa la siguiente información para ayudarnos a identificar el problema.
+  - type: input
+    id: workflow
+    attributes:
+      label: Nombre del workflow
+      description: Indica el nombre del archivo YAML o ruta del workflow afectado.
+      placeholder: .github/workflows/debug-ejemplo.yml
+    validations:
+      required: true
+  - type: textarea
+    id: descripcion
+    attributes:
+      label: Descripción del error
+      description: Explica detalladamente el problema encontrado.
+    validations:
+      required: true
+  - type: textarea
+    id: pasos
+    attributes:
+      label: Pasos para reproducir
+      description: Enumera los pasos para reproducir el error.
+      placeholder: |
+        1. Ir a '...'
+        2. Ejecutar '...'
+        3. Ver el error
+    validations:
+      required: true
+  - type: textarea
+    id: salida
+    attributes:
+      label: Salida o logs relevantes
+      description: Adjunta cualquier mensaje de error, log o captura de pantalla relevante.
+    validations:
+      required: false
+  - type: input
+    id: version
+    attributes:
+      label: Versión de GitHub Actions (si aplica)
+      description: Indica la versión o runner usado, si es relevante.
+      placeholder: ubuntu-latest
+    validations:
+      required: false
